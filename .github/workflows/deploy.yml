@@ -4,7 +4,7 @@ on:
         workflows: ['lint_and_test']
         types: [completed]
         branches:
-            - 'beta'
+            - 'main'
 
 jobs:
     deploy:
