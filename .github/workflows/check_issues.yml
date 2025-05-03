@@ -1,12 +1,11 @@
 name: echo issues
-on:
-  issues:
-    types: [opened, edited, milestoned]
+on: issues
+
 jobs:
   print:
     runs-on: ubuntu-latest
     steps: 
       - name: echo issue
         run: |
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${{ github.event.issue.body }}"
+          echo "Issue title: ${{ toJSON(github.event.issue.title) }}"
+          echo "Issue body: ${{ toJSON(github.event.issue.body) }}"
