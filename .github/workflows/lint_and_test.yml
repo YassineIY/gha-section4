@@ -1,0 +1,26 @@
+name: LTD on push
+on: push
+jobs:
+  lint: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v3
+
+      - name: install nodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: installing dependencies
+        run: npm ci
+
+      - name: lint the code
+        run: npm run lint
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: npm test
