@@ -1,7 +1,7 @@
 name: LTD on push
 on: push
 jobs:
-  lint: 
+  lint-test: 
     runs-on: ubuntu-latest
     steps:
       - name: get the code
@@ -18,19 +18,26 @@ jobs:
       - name: lint the code
         run: npm run lint
 
-  test:
-    needs: lint
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    needs: lint-test
     runs-on: ubuntu-latest
     steps:
-      - name: get the code
+      - name: Get code
         uses: actions/checkout@v3
-
+  
       - name: install nodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
-      - name: installing dependencies
+  
+      - name: Install dependencies"
         run: npm ci
-      - name: Run tests
-        run: npm test
+  
+      - name: Build project
+        run: npm run build
+  
+      - name: Deploy
+        run: echo "deploying..."
